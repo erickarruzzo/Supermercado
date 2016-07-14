@@ -3,7 +3,7 @@ package br.com.uff.model.domain.valueobject.enums;
 public enum FormaPagamento {
 
 	DINHEIRO(0),
-	CARTAO(1);
+	CARTÃO(1);
 	
 	private int forma;
 

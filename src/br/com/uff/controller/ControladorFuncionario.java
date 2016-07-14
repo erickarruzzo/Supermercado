@@ -8,7 +8,6 @@ import br.com.uff.model.domain.entity.mercado.Caixa;
 import br.com.uff.model.domain.entity.mercado.FilialSupermercado;
 import br.com.uff.model.domain.entity.usuario.Usuario;
 import br.com.uff.model.domain.exceptions.ProdutoException;
-import br.com.uff.model.domain.valueobject.Unidade;
 import br.com.uff.persitence.Sistema;
 
 public class ControladorFuncionario extends ControladorGeral {
@@ -16,7 +15,7 @@ public class ControladorFuncionario extends ControladorGeral {
 	@Override
 	public void printaMenuOpcoes(){
 		super.printaMenuOpcoes();
-		System.out.println("Digite 2 para verificar se estÃ¡ alocado em algum caixa: ");
+		System.out.println("Digite 2 para verificar se está alocado em algum caixa: ");
 	}
 
 	public void iniciaTelaParaFuncionario(Usuario usuario, FilialSupermercado filial) {
@@ -36,7 +35,14 @@ public class ControladorFuncionario extends ControladorGeral {
 			Scanner tecladoInt = new Scanner(System.in);
 			Scanner tecladoString = new Scanner(System.in);
 			
-			respostaOpcao = tecladoInt.nextInt();
+			try {
+				respostaOpcao = tecladoInt.nextInt();
+			} catch (Exception e) {
+				System.out.println("Resposta inválida, digite novamente.");
+				respostaOpcao = 10;
+				tecladoInt.nextLine();
+			}
+			
 			switch (respostaOpcao) {
 				case 0:
 					inicializaTelaPrincipal();
@@ -55,7 +61,7 @@ public class ControladorFuncionario extends ControladorGeral {
 	}
 
 	private void imprimeMensagemBemVindoFuncionario(Funcionario funcionario) {
-		System.out.println("Bem vindo Funcionï¿½rio " + funcionario.getNome());
+		System.out.println("Bem vindo Funcionário " + funcionario.getNome());
 	}
 
 	private void printaTelaOpcaoVerificaAlocacao(Funcionario funcionario, FilialSupermercado filial) {
@@ -69,9 +75,9 @@ public class ControladorFuncionario extends ControladorGeral {
 			} 
 		}		
 		if(isAlocado){
-			System.out.println("Vocï¿½ estï¿½ alocado no caixa " + caixaAlocado.getId());
+			System.out.println("Você está alocado no caixa " + caixaAlocado.getId());
 		} else{
-			System.out.println("Vocï¿½ nï¿½o estï¿½ alocado a nenhum caixa agora");
+			System.out.println("Você não está alocado a nenhum caixa agora");
 		}
 	}
 
@@ -84,7 +90,7 @@ public class ControladorFuncionario extends ControladorGeral {
 	}
 	
 	/**
-	 * Operaï¿½ï¿½o para visualizar o preï¿½o de um produto
+	 * Operação para visualizar o preço de um produto
 	 * @param cliente
 	 * @param tecladoString
 	 */
@@ -96,12 +102,12 @@ public class ControladorFuncionario extends ControladorGeral {
 			try {
 				System.out.println("Digite o nome do produto que deseja visualizar: ");
 				produtoNome = tecladoString.nextLine();
-				preco = funcionario.visualizaPrecoProdutoByNome(produtoNome, new Unidade(0));
+				preco = funcionario.visualizaPrecoProdutoByNome(produtoNome);
 			} catch (ProdutoException erro) {
 				System.out.println(erro.getMessage());
 			}
 		} while (preco == 0);
-		System.out.println("O Preï¿½o do produto ï¿½: " + preco);
+		System.out.println("O Preço do produto é: " + preco);
 	}
 	
 	

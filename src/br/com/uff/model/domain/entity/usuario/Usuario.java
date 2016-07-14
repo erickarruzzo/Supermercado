@@ -64,7 +64,7 @@ public class Usuario {
 	 * 
 	 * @param login
 	 * @param senha
-	 * @return Usuï¿½rio logado, ou nulo
+	 * @return Usuário logado, ou nulo
 	 */
 	public static Usuario realizaLogin(String login, String senha){
 		try {
@@ -76,10 +76,10 @@ public class Usuario {
 	}
 
 	/**
-	 * Verifica o login e senha informados batem com algum usuï¿½rio
+	 * Verifica o login e senha informados batem com algum usuário
 	 * @param login
 	 * @param senha
-	 * @return TRUE se o usuï¿½rio ï¿½ vï¿½lido, FALSE caso contrï¿½rio
+	 * @return TRUE se o usuário é válido, FALSE caso contrário
 	 * @throws UsuarioException 
 	 */
 	private static Usuario verificaUsuarioValido(String login, String senha) throws UsuarioException {
@@ -90,11 +90,11 @@ public class Usuario {
 				if(mapaFuncionarioSenha.get(usuarioCadastrado).equals(senha)){
 					return usuarioCadastrado;
 				} else{
-					throw new UsuarioException("Senha invÃ¡lida. Tente Novamente ou cadastra-se no Sistema");
+					throw new UsuarioException("Senha inválida. Tente Novamente ou cadastra-se no Sistema");
 				}
 			}
 		}
-		throw new UsuarioException("Login invÃ¡lido. Tente Novamente ou cadastra-se no Sistema");
+		throw new UsuarioException("Login inválido. Tente Novamente ou cadastra-se no Sistema");
 
 	}
 	

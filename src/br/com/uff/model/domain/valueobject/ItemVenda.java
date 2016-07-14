@@ -51,8 +51,17 @@ public class ItemVenda {
 		stringBuffer.append("Nome: ").append(produto.getNome()).append(", ");
 		stringBuffer.append("Marca: ").append(produto.getMarca()).append(", ");
 		stringBuffer.append("Tipo do Produto: ").append(produto.getTipoProduto()).append(", ");
-		stringBuffer.append("Quantidade: ").append(compra.getQuantidade());
+		stringBuffer.append("Quantidade: ").append(compra.getQuantidade()).append(", ");
+		stringBuffer.append("Preço: ").append(verificaPrecoProduto(compra));
 		return stringBuffer.toString();
+	}
+
+	private double verificaPrecoProduto(Compra compra) {
+		if(compra.getMedida().equals(Medida.KG)){
+			return produto.getPrecoQuilo();
+		} else{
+			return produto.getPrecoUnitario();
+		}
 	}
 
 	@Override

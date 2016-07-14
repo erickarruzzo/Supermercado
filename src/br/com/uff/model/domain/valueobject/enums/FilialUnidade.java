@@ -2,20 +2,20 @@ package br.com.uff.model.domain.valueobject.enums;
 
 public enum FilialUnidade {
 
-	MEIER("Meier"), COPACABANA("Copacabana");
+	MEIER("Méier");
 	
-	private String descricao;
+	private String descricão;
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescricão() {
+		return descricão;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescricão(String descricão) {
+		this.descricão = descricão;
 	}
 
-	private FilialUnidade(String descricao) {
-		this.descricao = descricao;
+	private FilialUnidade(String descricão) {
+		this.descricão = descricão;
 	}
 	
 }

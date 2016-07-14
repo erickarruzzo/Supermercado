@@ -56,26 +56,22 @@ public class Caixa implements OperacoesVenda, OperacoesGerais{
 	}
 	
 	@Override
-	public void finalizaVenda(Venda venda) {
-		try {
-			if(venda.getValorVendaFinal()>0){
-				if(venda.getPagamento().getValor() < venda.getValorVendaFinal()){
-					throw new PagamentoException(Constantes.PAGAMENTO_ERRO);
-				}if(venda.getPagamento().getValor() > venda.getValorVendaFinal()){
-					venda.getPagamento().setTroco(venda.getPagamento().getValor() - venda.getValorVendaFinal());
-				}
-				venda.getEstoque().baixaVendaEstoque(venda);
-				listaVendasRealizadasCaixa.add(venda);
+	public void finalizaVenda(Venda venda) throws RuntimeException {
+		if(venda.getValorVendaFinal()>0){
+			if(venda.getPagamento().getValor() < venda.getValorVendaFinal()){
+				throw new PagamentoException(Constantes.PAGAMENTO_ERRO);
+			}else if(venda.getPagamento().getValor() > venda.getValorVendaFinal()){
+				venda.getPagamento().setTroco(venda.getPagamento().getValor() - venda.getValorVendaFinal());
 			}
-		} catch (PagamentoException e) {
-			System.out.println(e.getMessage());
+			venda.getEstoque().baixaVendaEstoque(venda);
+			listaVendasRealizadasCaixa.add(venda);
 		}
 	}
 
 	@Override
-	public double visualizaPrecoProdutoByNome(String nomeProduto, TipoVenda tipoVenda) {
+	public double visualizaPrecoProdutoByNome(String nomeProduto) {
 		Produto produto = Sistema.getProdutoByNome(nomeProduto);
-		if(tipoVenda instanceof Unidade){
+		if(produto.getPrecoUnitario() != 0){
 			return produto.getPrecoUnitario();
 		} else{
 			return produto.getPrecoQuilo();

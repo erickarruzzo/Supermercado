@@ -23,11 +23,11 @@ public class ClienteOperationsTest {
 	private FilialSupermercado filial = Sistema.getListaFilialSupermercado().get(0);
 	
 	/**
-	 * Teste uma compra feito pelo Cliente em Cartï¿½o
+	 * Teste uma compra feito pelo Cliente em Cartão
 	 * Produtos comprados:
 	 * 10 Caixas de Leite
 	 * 7 KGs de Alcatra
-	 * 2,5 KGs de Feijï¿½o
+	 * 2,5 KGs de Feijão
 	 * 
 	 */
 	@Test
@@ -38,7 +38,7 @@ public class ClienteOperationsTest {
 		listaItemVenda.add(cliente.selecionaProdutoParaCompra("2", new Compra(Medida.KG, 7)));
 		listaItemVenda.add(cliente.selecionaProdutoParaCompra("4", new Compra(Medida.KG, 2.5)));
 		double valorPagamento = 126.275;
-		Pagamento pagamento = new Pagamento(valorPagamento, FormaPagamento.CARTAO);
+		Pagamento pagamento = new Pagamento(valorPagamento, FormaPagamento.CARTÃO);
 		Venda venda = new Venda(caixa.getFuncionarioResponsavel(), 
 								listaItemVenda, pagamento, filial.getEstoque());
 		caixa.finalizaVenda(venda);
@@ -50,7 +50,7 @@ public class ClienteOperationsTest {
 	 * Produtos comprados:
 	 * 10 Caixas de Leite
 	 * 7 KGs de Alcatra
-	 * 2,5 KGs de FeijÃ£o
+	 * 2,5 KGs de Feijão
 	 * 
 	 */
 	@Test

@@ -1,5 +1,6 @@
 package br.com.uff.controller;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -23,18 +24,18 @@ import br.com.uff.persitence.Sistema;
 public class ControladorGerente extends ControladorGeral {
 
 	/**
-	 * Imprime na tela operaï¿½ï¿½es para Gerente
+	 * Imprime na tela operações para Gerente
 	 */
 	@Override
 	public void printaMenuOpcoes() {
 		super.printaMenuOpcoes();
-		System.out.println("Digite 2 para alocar um funcionÃ¡rio em um caixa: ");
-		System.out.println("Digite 3 para visualizar quais funcionÃ¡rios estÃ¡o alocados nos caixas");
+		System.out.println("Digite 2 para alocar um funcionário em um caixa: ");
+		System.out.println("Digite 3 para visualizar quais funcionários estão alocados nos caixas");
 		System.out.println("Digite 4 para adicionar um produto no estoque: ");
-		System.out.println("Digite 5 para visualizsar produtos no estoque: ");
-		System.out.println("Digite 6 para gera um relatÃ³rio de vendas de um caixa especÃ¡fico: ");
-		System.out.println("Digite 7 para gera uma lista de relatÃ³rios de vendas de todo os caixas: ");
-		System.out.println("Digite 8 para gera um relatÃ³rio do estoque da sua filial: ");
+		System.out.println("Digite 5 para visualiar produtos no estoque: ");
+		System.out.println("Digite 6 para gera um relatório de vendas de um caixa específico: ");
+		System.out.println("Digite 7 para gera uma lista de relatórios de vendas de todo os caixas: ");
+		System.out.println("Digite 8 para gera um relatório do estoque da sua filial: ");
 	}
 	
 	public void iniciaTelaParaGerente(Usuario usuario, FilialSupermercado filial) {
@@ -53,7 +54,14 @@ public class ControladorGerente extends ControladorGeral {
 			Scanner tecladoInt = new Scanner(System.in);
 			Scanner tecladoString = new Scanner(System.in);
 			
-			respostaOpcao = tecladoInt.nextInt();
+			try{
+				respostaOpcao = tecladoInt.nextInt();
+			}catch (InputMismatchException ex){
+				System.out.println("Resposta inválida, digite novamente.");
+				respostaOpcao = 10;
+				tecladoInt.nextLine();
+			}
+			
 			switch (respostaOpcao) {
 			case 0:
 				inicializaTelaPrincipal();
@@ -112,12 +120,12 @@ public class ControladorGerente extends ControladorGeral {
 	private void printaTelaOpcaoGeraRelatorioPorCaixa(Gerente gerente, FilialSupermercado filial) {
 		@SuppressWarnings("resource")
 		Scanner teclado = new Scanner(System.in);
-		System.out.println("Digite o nï¿½mero do caixa que deseja gerar relatï¿½rio de vendas: ");
+		System.out.println("Digite o número do caixa que deseja gerar relatório de vendas: ");
 		String idCaixa = teclado.nextLine();
 		boolean idCaixaValido = true;
 		do {
 			try {
-				//Valida entrada do usuï¿½rio
+				//Valida entrada do usuário
 				@SuppressWarnings("unused")
 				Caixa caixa = Sistema.getCaixaById(idCaixa);
 			} catch (RuntimeException erro) {
@@ -152,10 +160,10 @@ public class ControladorGerente extends ControladorGeral {
 		TipoProduto tipoProduto = capturaTipoProdutodoUsuario(teclado, listaTipoProdutos);
 
 		System.out.println("Digite o preco em unidades do produto: "
-				+ "(Caso o produto nï¿½o seja vendido em Unidades, digite 0)");
+				+ "(Caso o produto não seja vendido em Unidades, digite 0)");
 		precoUnitario = teclado.nextDouble();
 		System.out.println("Digite o preco em Quilo do produto: "
-				+ "(Caso o produto nï¿½o seja vendido em Quilo, digite 0)");
+				+ "(Caso o produto não seja vendido em Quilo, digite 0)");
 		precoQuilo = teclado.nextDouble();
 		
 		Produto produto = new Produto(id, nome, marca, tipoProduto, precoUnitario, precoQuilo);
@@ -164,14 +172,14 @@ public class ControladorGerente extends ControladorGeral {
 		Quilo quilo = null;
 		
 		System.out.println("Digite a quantidade do produto (Unidades) que deseja adicionar: "
-				+ "(Caso o produto nï¿½o seja vendido em Unidades, digite 0)");
+				+ "(Caso o produto não seja vendido em Unidades, digite 0)");
 		int quantidadeProduto = teclado.nextInt();
 		if(!(quantidadeProduto == 0)){
 			unidade = new Unidade(quantidadeProduto);
 		}
 		
 		System.out.println("Digite o peso do produto que deseja adicionar: "
-				+ "(Caso o produto nï¿½o seja vendido em Quilo, digite 0");
+				+ "(Caso o produto não seja vendido em Quilo, digite 0");
 		double pesoProduto= teclado.nextInt();
 		if(!(pesoProduto == 0)){
 			quilo = new Quilo(pesoProduto);
@@ -181,7 +189,7 @@ public class ControladorGerente extends ControladorGeral {
 	}
 
 	/**
-	 * Gera id aleatï¿½rio
+	 * Gera id aleatório
 	 * @return
 	 */
 	private String geraIdAleatorio() {
@@ -200,7 +208,7 @@ public class ControladorGerente extends ControladorGeral {
 		boolean existeTipoProduto = false;
 		do {
 			System.out.println("Existem " + listaTipoProdutos.size() + " tipos de produtos no Mercado");
-			System.out.println("Qual Ã© a categoria do seu produto? ");
+			System.out.println("Qual é a categoria do seu produto? ");
 			for (TipoProduto tipoProdutoLista : listaTipoProdutos) {
 				System.out.println(tipoProdutoLista.getDescricao());
 			}
@@ -211,7 +219,7 @@ public class ControladorGerente extends ControladorGeral {
 					return tipoProdutoLista;
 				}
 			}
-			System.out.println("NÃ£o pode ser adicionado esse tipo de produto!");
+			System.out.println("Não pode ser adicionado esse tipo de produto!");
 		} while (!existeTipoProduto);
 		return null;
 	}
@@ -229,7 +237,7 @@ public class ControladorGerente extends ControladorGeral {
 		String nomeFuncionario, idCaixa;
 		System.out.println("Digite o nome do funcionario que deseja alocar: ");
 		nomeFuncionario = teclado.nextLine();
-		System.out.println("Digite o nï¿½mero do caixa que deseja alocar o funcionï¿½rio: ");
+		System.out.println("Digite o número do caixa que deseja alocar o funcionário: ");
 		idCaixa = teclado.nextLine();
 		Funcionario funcionario = null;
 		Caixa caixa = null;
@@ -245,27 +253,24 @@ public class ControladorGerente extends ControladorGeral {
 	}
 
 	/**
-	 * Operaï¿½ï¿½o para visualizar o preï¿½o de um produto
+	 * Operação para visualizar o preço de um produto
 	 * @param cliente
 	 * @param tecladoString
 	 */
 	private void printaTelaOpcaoVisualizarPrecoProduto(Gerente gerente,
 			Scanner tecladoString) {
-		String produtoNome="0";
+		String produtoNome;
 		double preco = 0;
 		do {
 			try {
-				System.out.println("Digite o nome do produto que deseja visualizar:");
+				System.out.println("Digite o nome do produto que deseja visualizar: ");
 				produtoNome = tecladoString.nextLine();
-				preco = gerente.visualizaPrecoProdutoByNome(produtoNome, new Unidade(0));
+				preco = gerente.visualizaPrecoProdutoByNome(produtoNome);
 			} catch (ProdutoException erro) {
 				System.out.println(erro.getMessage());
 			}
 		} while (preco == 0);
-		
-		
-		
-		System.out.println("O PreÃ§o do produto Ã©: " + preco);
+		System.out.println("O Preço do produto é: " + preco);
 	}
 	
 	/**

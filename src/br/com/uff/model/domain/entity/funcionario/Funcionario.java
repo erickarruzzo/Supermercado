@@ -33,9 +33,9 @@ public class Funcionario extends FuncionarioAbstract implements OperacoesGerais{
 	}
 
 	@Override
-	public double visualizaPrecoProdutoByNome(String nomeProduto, TipoVenda tipoVenda) {
+	public double visualizaPrecoProdutoByNome(String nomeProduto) {
 		Produto produto = Sistema.getProdutoByNome(nomeProduto);
-		if(tipoVenda instanceof Unidade){
+		if(produto.getPrecoUnitario() != 0){
 			return produto.getPrecoUnitario();
 		} else{
 			return produto.getPrecoQuilo();

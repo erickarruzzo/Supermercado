@@ -9,7 +9,7 @@ public interface OperacoesGerais {
 	 * Visualiza preco do produto pelo nome
 	 * @return
 	 */
-	public double visualizaPrecoProdutoByNome(String nomeProduto, TipoVenda tipoVenda);
+	public double visualizaPrecoProdutoByNome(String nomeProduto);
 	
 	/**
 	 * Visualiza preço do produto pelo id

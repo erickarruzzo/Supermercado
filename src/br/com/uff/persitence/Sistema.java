@@ -27,7 +27,7 @@ import br.com.uff.model.domain.valueobject.enums.FilialUnidade;
 import br.com.uff.model.domain.valueobject.enums.TipoProduto;
 
 /**
- * Classe para inicializar o sistema. Serï¿½ substituï¿½da pela Persistencia
+ * Classe para inicializar o sistema. Será substituída pela Persistencia
  *
  */
 public class Sistema {
@@ -148,25 +148,6 @@ public class Sistema {
 		
 		listaGerentes.add(gerente);
 		
-		calendarDataAniversario = Calendar.getInstance();
-		calendarDataAniversario.set(Calendar.DAY_OF_MONTH, 9);
-		calendarDataAniversario.set(Calendar.MONTH, 7);
-		calendarDataAniversario.set(Calendar.YEAR, 1992);
-		
-		calendarDataContratacao = Calendar.getInstance();
-		calendarDataContratacao.set(Calendar.DAY_OF_MONTH, 4);
-		calendarDataContratacao.set(Calendar.MONTH, 10);
-		calendarDataContratacao.set(Calendar.YEAR, 2005);
-		
-		dataAniversario = new Date();
-		dataAniversario = calendarDataAniversario.getTime();
-		dataContratacao = new Date();
-		dataContratacao = calendarDataContratacao.getTime();
-		
-		gerente = new Gerente("erickrezende", "123456", "02", "Erick Rezende", dataAniversario, dataContratacao, 9000.00);
-		
-		listaGerentes.add(gerente);
-		
 		return listaGerentes;
 	}
 	
@@ -266,19 +247,16 @@ public class Sistema {
 		produto = new Produto("3", "Biscoito", "Passatempo", TipoProduto.ALIMENTO, 1.99, 0);
 		listaProdutos.add(produto);
 		
-		produto = new Produto("4", "FeijÃ£o", "Maximo", TipoProduto.ALIMENTO, 0, 4.95);
+		produto = new Produto("4", "Feijão", "Maximo", TipoProduto.ALIMENTO, 0, 4.95);
 		listaProdutos.add(produto);
 		
-		produto = new Produto("5", "Arroz", "Tio JoÃ£o", TipoProduto.ALIMENTO, 0, 2.99);
+		produto = new Produto("5", "Arroz", "Tio João", TipoProduto.ALIMENTO, 2.99, 0);
 		listaProdutos.add(produto);
 		
-		produto = new Produto("6", "Acucar", "UniÃ£o", TipoProduto.ALIMENTO, 0, 3.20);
+		produto = new Produto("6", "Acucar", "União", TipoProduto.ALIMENTO, 0, 3.20);
 		listaProdutos.add(produto);
 		
 		produto = new Produto("7", "Manteiga", "Qualy", TipoProduto.ALIMENTO, 4.00, 0);
-		listaProdutos.add(produto);
-		
-		produto = new Produto("8", "Cerveja", "Heineken", TipoProduto.BEBIDA, 4.99, 0);
 		listaProdutos.add(produto);
 		
 		return listaProdutos;
@@ -302,8 +280,8 @@ public class Sistema {
 		itemEstoque = new ItemEstoque(listaProduto.get(3), null, quilo);
 		listaItemEstoque.add(itemEstoque);
 		
-		quilo = new Quilo(200);
-		itemEstoque = new ItemEstoque(listaProduto.get(4), null, quilo);
+		unidade = new Unidade(200);
+		itemEstoque = new ItemEstoque(listaProduto.get(4), unidade, null);
 		listaItemEstoque.add(itemEstoque);
 		
 		quilo = new Quilo(175);
@@ -321,26 +299,14 @@ public class Sistema {
 		listaEstoque = new ArrayList<Estoque>();
 		Estoque estoque1 = new Estoque("1", Constantes.ENDERECO_MEIER, 1000, listaItemEstoque);
 		listaEstoque.add(estoque1);
-		
-		Estoque estoque2 = new Estoque("2", Constantes.ENDERECO_COPACABANA, 2000, listaItemEstoque);
-		listaEstoque.add(estoque2);
-		
 		return listaEstoque;
 	}
 	
 	private static List<FilialSupermercado> inicializaFiliasSupermercado(){
 		listaFilialSupermercado = new ArrayList<FilialSupermercado>();
-		
 		FilialSupermercado filialSupermercado = new FilialSupermercado(FilialUnidade.MEIER, Constantes.ENDERECO_MEIER, 
 				listaEstoque.get(0), listaGerente.get(0), listaFuncionarios, listaCaixaMercado);
-		
 		listaFilialSupermercado.add(filialSupermercado);
-		
-		filialSupermercado = new FilialSupermercado(FilialUnidade.COPACABANA, Constantes.ENDERECO_COPACABANA, 
-				listaEstoque.get(1), listaGerente.get(1), listaFuncionarios, listaCaixaMercado);
-		
-		listaFilialSupermercado.add(filialSupermercado);
-		
 		return listaFilialSupermercado;
 		
 	}
@@ -359,36 +325,21 @@ public class Sistema {
 	
 	private static Map<FuncionarioAbstract, String> inicializaMapFuncionarioSenha(){
 		mapaUsuarioSenha = new HashMap<FuncionarioAbstract, String>();
-		
-		for(Funcionario funcionario : listaFuncionarios){
-			mapaUsuarioSenha.put(funcionario, funcionario.getSenha());
-		}
-		
-		for (Gerente gerente : listaGerente){
-			mapaUsuarioSenha.put(gerente, gerente.getSenha());
-		}
-		
-		/*
-		 * mapaUsuarioSenha.put(listaFuncionarios.get(0), listaFuncionarios.get(0).getSenha());
+		mapaUsuarioSenha.put(listaFuncionarios.get(0), listaFuncionarios.get(0).getSenha());
 		mapaUsuarioSenha.put(listaFuncionarios.get(1), listaFuncionarios.get(1).getSenha());
 		mapaUsuarioSenha.put(listaFuncionarios.get(2), listaFuncionarios.get(2).getSenha());
 		mapaUsuarioSenha.put(listaFuncionarios.get(3), listaFuncionarios.get(3).getSenha());
 		mapaUsuarioSenha.put(listaFuncionarios.get(4), listaFuncionarios.get(4).getSenha());
 		mapaUsuarioSenha.put(listaGerente.get(0), listaGerente.get(0).getSenha());
-		*/
-		
 		return mapaUsuarioSenha;
 	}
 	
 	private static List<Usuario> inicializaListaUsuarios() {
 		List<Usuario> listaUsuarios = new LinkedList<Usuario>();
-		
 		for (Funcionario funcionario : listaFuncionarios) {
 			listaUsuarios.add(funcionario);
 		}
-		for (Gerente gerente : listaGerente){
-			listaUsuarios.add(gerente);
-		}
+		listaUsuarios.add(listaGerente.get(0));
 		return listaUsuarios;
 	}
 	
@@ -416,7 +367,7 @@ public class Sistema {
 				return funcionario;
 			}
 		}
-		throw new FuncionarioException("NÃ£o existe FuncionÃ¡rio cadastrado com esse nome!");
+		throw new FuncionarioException("Não existe Funcionário cadastrado com esse nome!");
 	}
 	
 	public static Caixa getCaixaById(String id){

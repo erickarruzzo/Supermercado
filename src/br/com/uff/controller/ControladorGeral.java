@@ -17,20 +17,18 @@ public class ControladorGeral {
 	/**
 	 * Inicia Tela de Login
 	 */
-	public void inicializaTelaPrincipal(){
+	public void inicializaTelaPrincipal() {
 			int resposta;
 			Scanner teclado = new Scanner(System.in);
 			FilialSupermercado filial = Sistema.getListaFilialSupermercado().get(0);
 			inicializaConfiguracoesIniciais();
-			
 			do {
 				try{
-					System.out.println("Digite 1 para utilizar o sistema como cliente ou 2 para utilizar como funcionário:");
+					System.out.println("Digite 1 para utilizar o sistema como cliente ou 2 para utilizar como funcion�rio:");
 					resposta = teclado.nextInt();
-					
-				} catch (InputMismatchException ex){
-					resposta=0; //recebendo um valor inteiro inválido como opção
-					teclado.nextLine(); //esvaziando buffer
+				}catch (InputMismatchException ex){
+					resposta = 0;
+					teclado.nextLine();
 				}
 				
 				if(resposta == 1){
@@ -40,18 +38,17 @@ public class ControladorGeral {
 					Usuario usuario = inicializaTelaLoginFuncionario();
 					direcionaUsuario(filial, usuario);
 				} else{
-					System.out.println("Opçãoo inválida!");
+					System.out.println("Op��o inv�lida!");
 					printaLinhaEmBranco();
 				}
-							
 			} while (!validaRespostaTelaInicial(resposta));
 			teclado.close();
 	}
 	
 	protected void printaMenuOpcoes(){
 		System.out.println("Digite -1 para sair do Sistema: ");
-		System.out.println("Digite 0 para fazer logoff e entrar como outro Usuário");
-		System.out.println("Digite 1 para visualizar o preço de um produto: ");
+		System.out.println("Digite 0 para fazer logoff e entrar como outro Usu�rio");
+		System.out.println("Digite 1 para visualizar o pre�o de um produto: ");
 	}
 
 	public void imprimeLinhasEmBranco(int quantidade){
